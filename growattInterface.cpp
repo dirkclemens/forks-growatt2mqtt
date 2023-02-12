@@ -73,6 +73,8 @@ uint8_t growattIF::ReadInputRegisters(char* json) {
       modbusdata.outputpower = ((growattInterface.getResponseBuffer(35) << 16) | growattInterface.getResponseBuffer(36)) * 0.1;
       modbusdata.gridfrequency = growattInterface.getResponseBuffer(37) * 0.01;
       modbusdata.gridvoltage = growattInterface.getResponseBuffer(38) * 0.1;
+      modbusdata.gridcurrent = growattInterface.getResponseBuffer(39) * 0.1;
+      modbusdata.gridpower = ((growattInterface.getResponseBuffer(40) << 16) | growattInterface.getResponseBuffer(41)) * 0.1;
 
       // Energy
       modbusdata.energytoday = ((growattInterface.getResponseBuffer(53) << 16) | growattInterface.getResponseBuffer(54)) * 0.1;
@@ -194,6 +196,8 @@ uint8_t growattIF::ReadInputRegisters(char* json) {
       sprintf(json, "%s \"outputpower\":%.1f,", json, modbusdata.outputpower);
       sprintf(json, "%s \"gridfrequency\":%.2f,", json, modbusdata.gridfrequency);
       sprintf(json, "%s \"gridvoltage\":%.1f,", json, modbusdata.gridvoltage);
+      sprintf(json, "%s \"gridcurrent\":%.1f,", json, modbusdata.gridcurrent);
+      sprintf(json, "%s \"gridpower\":%.1f,", json, modbusdata.gridpower);
 
       sprintf(json, "%s \"energytoday\":%.1f,", json, modbusdata.energytoday);
       sprintf(json, "%s \"energytotal\":%.1f,", json, modbusdata.energytotal);
